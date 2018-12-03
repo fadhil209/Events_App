@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "449187705884",
+    "firebase_url": "https://eventsapp-3ac5f.firebaseio.com",
+    "project_id": "eventsapp-3ac5f",
+    "storage_bucket": "eventsapp-3ac5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449187705884:android:997bb5d2fef51d29",
+        "android_client_info": {
+          "package_name": "com.example.faadhil.events"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449187705884-22jfb0k4f01op7vojv0mi5ksl4o28slt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUZgaYTHb-gIKpPZ8zuFGzcYyvEInicxo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
