@@ -16,4 +16,11 @@
     </string>
 
     <string name="app_name_1">Antalya Students Guide</string>
+
+    <array name="categories">
+        <item>All</item>
+        <item>Sports</item>
+        <item>Ctegory 2</item>
+        <item>Others</item>
+    </array>
 </resources>

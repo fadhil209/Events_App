@@ -1,7 +1,7 @@
 package com.example.faadhil.events;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
@@ -12,8 +12,8 @@ public class PageAdapter extends FragmentStatePagerAdapter {
 
     int mNoOfTabs;
 
-    public PageAdapter(FragmentManager fm, int mNoOfTabs) {
-        super(fm);
+    public PageAdapter(FragmentActivity activity, int mNoOfTabs) {
+        super(activity.getSupportFragmentManager());
         this.mNoOfTabs = mNoOfTabs;
     }
 
@@ -24,8 +24,10 @@ public class PageAdapter extends FragmentStatePagerAdapter {
                  EventsFragment fragment1 = new EventsFragment();
                 return fragment1;
             case 1:
-                LogInFragment logInFragment = new LogInFragment();
-                return logInFragment;
+                if (!Main2Activity.userboolean) {
+                    LogInFragment logInFragment = new LogInFragment();
+                    return logInFragment;
+                }
             default:
                 return null;
         }
