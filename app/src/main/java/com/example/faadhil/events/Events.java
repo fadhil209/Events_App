@@ -13,9 +13,11 @@ public class Events {
     private String date;
     private String time;
     private String category;
+    private String dealsId;
 
 
-    public Events(String category, String date, String description, String eventId, String eventName, String location, String time, String uri) {
+    public Events(String dealsId, String category, String date, String description, String eventId, String eventName, String location, String time, String uri) {
+        this.dealsId = dealsId;
         this.category = category;
         this.date = date;
         this.description = description;

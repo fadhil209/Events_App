@@ -72,6 +72,7 @@ public class signUp extends AppCompatActivity {
                     mAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder()
                             .setDisplayName(username.getText().toString()).build());
                     Toast.makeText(signUp.this, mAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+                    finish();
 
                 }
                 else

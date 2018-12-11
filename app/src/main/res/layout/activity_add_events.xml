@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_events"
     android:layout_width="match_parent"
@@ -8,6 +9,86 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.faadhil.events.AddEvents">
+    tools:context="com.example.faadhil.events.AddEvents"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background"
+                android:id="@+id/imageView5" />
+
+            <Button
+                android:text="Upload Image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uploadButton" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/EventNameText"
+                android:hint="Enter the Event Name" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/EventDescriptionText"
+                android:hint="Enter Description" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/locationText"
+                android:hint="Location" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/dateText"
+                android:hint="Date" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/editText5"
+                android:hint="Time" />
+
+            <TextView
+                android:text="Any deals ?(optional)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/DealsText"
+                android:hint="Deals" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

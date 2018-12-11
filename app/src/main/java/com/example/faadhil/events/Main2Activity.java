@@ -3,7 +3,6 @@ package com.example.faadhil.events;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,7 +16,6 @@ public class Main2Activity extends AppCompatActivity {
     public static boolean userboolean ;
     public static TabLayout tabLayout;
     static ViewPager viewPager;
-    FragmentActivity activity;
 
 
 
@@ -26,30 +24,16 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null)
-                    userboolean = true;
-                else
-                    userboolean = false;
-            }
-        };
+        mAuth = FirebaseAuth.getInstance();
 
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Events"));
-        if (!userboolean)
-            tabLayout.addTab(tabLayout.newTab().setText("Sign In"));
-//        else
-//            tabLayout.addTab(tabLayout.newTab().setText("Add"));
-//        tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
+        tabLayout.addTab(tabLayout.newTab().setText("Add Event"));
 
         viewPager = (ViewPager) findViewById(R.id.pager);
-        final PageAdapter pageAdapter = new PageAdapter(this, tabLayout.getTabCount());
+        viewPager.setSaveFromParentEnabled(false);
+        final PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(pageAdapter);
 
@@ -72,6 +56,26 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
+                    userboolean = true;
+                    final PageAdapter pageAdapterNew = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+                    viewPager.setAdapter(pageAdapterNew);
 
+                }
+                else
+                    userboolean = false;
+            }
+        };
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 }
