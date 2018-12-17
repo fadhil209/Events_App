@@ -7,10 +7,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:entries="@array/categories" />
+        android:entries="@array/categories"
+        android:padding="10dp" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/eventsListView" />
+        android:id="@+id/eventsListView"
+        android:dividerHeight="10dp"
+        android:divider="@android:color/transparent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 </LinearLayout>

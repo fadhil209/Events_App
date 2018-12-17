@@ -1,10 +1,13 @@
 package com.example.faadhil.events;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +19,7 @@ public class Main2Activity extends AppCompatActivity {
     public static boolean userboolean ;
     public static TabLayout tabLayout;
     static ViewPager viewPager;
+    Fragment[] fragment = new Fragment[3];
 
 
 
@@ -26,35 +30,38 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         mAuth = FirebaseAuth.getInstance();
 
-
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.pager);
+
         tabLayout.addTab(tabLayout.newTab().setText("Events"));
         tabLayout.addTab(tabLayout.newTab().setText("Add Event"));
-
-        viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setSaveFromParentEnabled(false);
-        final PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        fragment[0] = new EventsFragment();
+        fragment[1] = new LogInFragment();
+        fragment[2] = new AddEventsFragment();
+        final PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), fragment);
 
         viewPager.setAdapter(pageAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
-        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                viewPager.setCurrentItem(tab.getPosition());
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -62,12 +69,15 @@ public class Main2Activity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null){
                     userboolean = true;
-                    final PageAdapter pageAdapterNew = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+                    final PageAdapter pageAdapterNew = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), fragment);
                     viewPager.setAdapter(pageAdapterNew);
 
                 }
-                else
+                else {
                     userboolean = false;
+                    final PageAdapter pageAdapterNew = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), fragment);
+                    viewPager.setAdapter(pageAdapterNew);
+                }
             }
         };
 
@@ -77,5 +87,24 @@ public class Main2Activity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        viewPager.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                viewPager.setCurrentItem(2);
+            }
+        }, 50);
+
+
+        Log.d("Log", "onActivityResult: in Mainactivity" + viewPager.getCurrentItem());
     }
 }

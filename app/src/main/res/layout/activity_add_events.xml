@@ -21,17 +21,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signedUsername"
+                android:gravity="right" />
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background"
-                android:id="@+id/imageView5" />
+                android:id="@+id/imageViewAdd" />
 
             <Button
                 android:text="Upload Image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/uploadButton" />
+                android:id="@+id/uploadImage" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -49,12 +55,18 @@
                 android:id="@+id/EventDescriptionText"
                 android:hint="Enter Description" />
 
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/addEventSpinner"
+                android:entries="@array/categoriesForAdding" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/locationText"
+                android:id="@+id/EventLocationText"
                 android:hint="Location" />
 
             <EditText
@@ -62,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="date"
                 android:ems="10"
-                android:id="@+id/dateText"
+                android:id="@+id/EventDateText"
                 android:hint="Date" />
 
             <EditText
@@ -70,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="time"
                 android:ems="10"
-                android:id="@+id/editText5"
+                android:id="@+id/EventTimeText"
                 android:hint="Time" />
 
             <TextView
@@ -85,8 +97,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/DealsText"
+                android:id="@+id/EventDealsText"
                 android:hint="Deals" />
+
+            <Button
+                android:text="Upload Event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uploadButton" />
 
         </LinearLayout>
     </ScrollView>

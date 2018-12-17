@@ -13,19 +13,39 @@ public class Events {
     private String date;
     private String time;
     private String category;
-    private String dealsId;
+    private String deals;
+    private String username;
 
+    public Events() {
+    }
 
-    public Events(String dealsId, String category, String date, String description, String eventId, String eventName, String location, String time, String uri) {
-        this.dealsId = dealsId;
+    public Events(String category, String date, String deals, String description, String eventId, String eventName, String location, String time, String uri, String username) {
         this.category = category;
         this.date = date;
+        this.deals = deals;
         this.description = description;
         this.eventId = eventId;
         this.eventName = eventName;
         this.location = location;
         this.time = time;
         this.uri = uri;
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDeals() {
+        return deals;
+    }
+
+    public void setDeals(String deals) {
+        this.deals = deals;
     }
 
     public String getCategory() {

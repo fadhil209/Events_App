@@ -16,7 +16,7 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseAuth.getInstance().signOut();
+//        FirebaseAuth.getInstance().signOut();
 
             new Handler().postDelayed(new Runnable() {
                 @Override

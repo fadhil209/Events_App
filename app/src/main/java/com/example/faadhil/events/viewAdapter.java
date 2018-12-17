@@ -14,6 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 /**
  * Created by Faadhil on 12/8/2018.
  */
@@ -50,7 +52,7 @@ public class viewAdapter extends ArrayAdapter {
         dateTextView.setText(event.getDate() + " at " + event.getTime());
         locationTextView.setText(event.getLocation());
 
-        Picasso.with(context).load(Uri.parse(event.getUri())).into(imageView);
+        Picasso.with(context).load(Uri.parse(event.getUri())).transform(new RoundedCornersTransformation(10,0)).fit().into(imageView);
 
         return listViewItem;
 

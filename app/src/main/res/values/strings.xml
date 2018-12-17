@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Events</string>
+    <string name="app_name">Antalya Events</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -15,12 +15,18 @@
         completions."
     </string>
 
-    <string name="app_name_1">Antalya Students Guide</string>
+    <string name="app_name_1">Antalya Events</string>
 
     <array name="categories">
         <item>All</item>
         <item>Sports</item>
-        <item>Ctegory 2</item>
+        <item>Music</item>
+        <item>Others</item>
+    </array>
+
+    <array name="categoriesForAdding">
+        <item>Sports</item>
+        <item>Music</item>
         <item>Others</item>
     </array>
 

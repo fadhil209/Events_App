@@ -10,26 +10,32 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
 
+    Fragment fragment[];
     int mNoOfTabs;
 
-    public PageAdapter(FragmentManager fm, int mNoOfTabs) {
+    private String[] tabTitles = new String[]{"Events", "Add Events"};
+
+    public PageAdapter(FragmentManager fm, int mNoOfTabs, Fragment[] fragment) {
         super(fm);
         this.mNoOfTabs = mNoOfTabs;
+        this.fragment = fragment;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabTitles[position];
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
-                 EventsFragment fragment1 = new EventsFragment();
-                return fragment1;
+                return fragment[0];
             case 1:
                 if (!Main2Activity.userboolean) {
-                    LogInFragment logInFragment = new LogInFragment();
-                    return logInFragment;
-                }else{
-                    AddEventsFragment fragment2 = new AddEventsFragment();
-                    return fragment2;
+                    return fragment[1];
+                } else {
+                    return fragment[2];
                 }
             default:
                 return null;
@@ -41,12 +47,5 @@ public class PageAdapter extends FragmentStatePagerAdapter {
         return mNoOfTabs;
     }
 
-
-
-//    public void clearAll() //Clear all page
-//    {
-//        for(int i=0; i<getCount(); i++)
-//            this.destroyItem(null, i, this.getItem(i).getHost());
-//    }
 }
 
