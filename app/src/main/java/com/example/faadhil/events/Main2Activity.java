@@ -19,7 +19,7 @@ public class Main2Activity extends AppCompatActivity {
     public static boolean userboolean ;
     public static TabLayout tabLayout;
     static ViewPager viewPager;
-    Fragment[] fragment = new Fragment[3];
+    Fragment[] fragment = new Fragment[4];
 
 
 
@@ -34,34 +34,18 @@ public class Main2Activity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Events"));
+        tabLayout.addTab(tabLayout.newTab().setText("Deals"));
         tabLayout.addTab(tabLayout.newTab().setText("Add Event"));
         viewPager.setSaveFromParentEnabled(false);
         fragment[0] = new EventsFragment();
-        fragment[1] = new LogInFragment();
-        fragment[2] = new AddEventsFragment();
+        fragment[1] = new DealsFragment();
+        fragment[2] = new LogInFragment();
+        fragment[3] = new AddEventsFragment();
         final PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), fragment);
 
         viewPager.setAdapter(pageAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-//        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-//
-//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -81,6 +65,8 @@ public class Main2Activity extends AppCompatActivity {
             }
         };
 
+
+
     }
 
     @Override
@@ -89,6 +75,9 @@ public class Main2Activity extends AppCompatActivity {
         mAuth.addAuthStateListener(mAuthListener);
 
     }
+
+
+
 
 
 

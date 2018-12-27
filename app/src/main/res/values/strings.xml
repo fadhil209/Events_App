@@ -21,15 +21,20 @@
         <item>All</item>
         <item>Sports</item>
         <item>Music</item>
+        <item>Family and Kids</item>
+        <item>Arts</item>
         <item>Others</item>
     </array>
 
     <array name="categoriesForAdding">
         <item>Sports</item>
         <item>Music</item>
+        <item>Family and Kids</item>
+        <item>Arts</item>
         <item>Others</item>
     </array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_hint">Search</string>
 </resources>

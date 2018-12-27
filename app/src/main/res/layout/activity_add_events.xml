@@ -75,7 +75,10 @@
                 android:inputType="date"
                 android:ems="10"
                 android:id="@+id/EventDateText"
-                android:hint="Date" />
+                android:hint="Date"
+                android:editable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -83,7 +86,10 @@
                 android:inputType="time"
                 android:ems="10"
                 android:id="@+id/EventTimeText"
-                android:hint="Time" />
+                android:hint="Time"
+                android:editable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
             <TextView
                 android:text="Any deals ?(optional)"

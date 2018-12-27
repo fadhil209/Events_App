@@ -13,7 +13,7 @@ public class PageAdapter extends FragmentStatePagerAdapter {
     Fragment fragment[];
     int mNoOfTabs;
 
-    private String[] tabTitles = new String[]{"Events", "Add Events"};
+    private String[] tabTitles = new String[]{"Events", "Deals" ,"Add Events"};
 
     public PageAdapter(FragmentManager fm, int mNoOfTabs, Fragment[] fragment) {
         super(fm);
@@ -32,10 +32,12 @@ public class PageAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return fragment[0];
             case 1:
+                return fragment[1];
+            case 2:
                 if (!Main2Activity.userboolean) {
-                    return fragment[1];
-                } else {
                     return fragment[2];
+                } else {
+                    return fragment[3];
                 }
             default:
                 return null;

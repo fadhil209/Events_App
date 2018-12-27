@@ -23,15 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".Main2Activity"
+            android:theme="@style/App1Theme"></activity>
         <activity
             android:name=".LogIn"
             android:theme="@style/App1Theme" />
         <activity
             android:name=".signUp"
             android:theme="@style/App1Theme" />
-        <activity android:name=".AddEvents"></activity>
+        <activity android:name=".AddEvents" />
+        <activity android:name=".showEvent"></activity>
     </application>
 
 </manifest>
