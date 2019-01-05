@@ -5,25 +5,23 @@
     tools:context=".DealsFragment"
     android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/searchboxdeals"
-        android:hint="Search"
-        android:layout_margin="5dp"
-        android:padding="10dp"
-        android:background="@drawable/searchbox"
-        android:imeOptions="actionSearch"/>
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="textPersonName"-->
+        <!--android:ems="10"-->
+        <!--android:id="@+id/searchboxdeals"-->
+        <!--android:hint="Search"-->
+        <!--android:layout_margin="5dp"-->
+        <!--android:padding="10dp"-->
+        <!--android:background="@drawable/searchbox"-->
+        <!--android:imeOptions="actionSearch"/>-->
 
-    <ListView
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/DealsListView"
-        android:dividerHeight="10dp"
-        android:divider="@android:color/transparent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
+        android:id="@+id/GridViewDeals"
+        android:numColumns="auto_fit" />
+
+
 </LinearLayout>

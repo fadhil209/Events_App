@@ -50,11 +50,11 @@ public class viewAdapter extends ArrayAdapter {
         Events event = eventsList.get(position);
 
         eventName.setText(event.getEventName());
-        dateTextView.setText(event.getDate() + " at " + event.getTime());
+        dateTextView.setText(event.getDate() );
         locationTextView.setText(event.getLocation());
         category.setText(event.getCategory());
 
-        Picasso.with(context).load(Uri.parse(event.getUri())).transform(new RoundedCornersTransformation(10,0)).fit().into(imageView);
+        Picasso.with(context).load(Uri.parse(event.getUri())).transform(new RoundedCornersTransformation(20,0)).fit().into(imageView);
 
         return listViewItem;
 

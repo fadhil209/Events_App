@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +30,7 @@ public class DealsFragment extends Fragment {
     List<Deals> deals; // for all deals from firebase
     List<Deals> deal;  // for all deals searched that will be passed to the view adapter to inflate the list view
     EditText searchbox;
+    GridView dealsgridview;
     public static Deals publicdeal;
 
 
@@ -52,24 +54,33 @@ public class DealsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dealsList = (ListView) getView().findViewById(R.id.DealsListView);
+//        dealsList = (ListView) getView().findViewById(R.id.DealsListView);
         deals = new ArrayList<>();
         deal = new ArrayList<>();
-        searchbox = (EditText) getView().findViewById(R.id.searchboxdeals);
+//        searchbox = (EditText) getView().findViewById(R.id.searchboxdeals);
+        dealsgridview = (GridView) getView().findViewById(R.id.GridViewDeals);
 
         databaseReferenceDeals.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                deals.clear();
                 for (DataSnapshot dealsdata : dataSnapshot.getChildren()) {
                     deals.add(dealsdata.getValue(Deals.class));
                 }
 
                 Collections.reverse(deals);
+//                for(Deals deals1 : deals){
+//                    if (!deal.contains(deals1)){
+//                        deal.add(deals1);
+//                        DealsViewAdapter viewAdapter = new DealsViewAdapter(getActivity(), deal);
+//                        dealsList.setAdapter(viewAdapter);
+//                    }
+//                }
                 for(Deals deals1 : deals){
                     if (!deal.contains(deals1)){
                         deal.add(deals1);
                         DealsViewAdapter viewAdapter = new DealsViewAdapter(getActivity(), deal);
-                        dealsList.setAdapter(viewAdapter);
+                        dealsgridview.setAdapter(viewAdapter);
                     }
                 }
             }

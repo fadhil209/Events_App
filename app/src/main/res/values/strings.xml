@@ -21,7 +21,7 @@
         <item>All</item>
         <item>Sports</item>
         <item>Music</item>
-        <item>Family and Kids</item>
+        <item>Family</item>
         <item>Arts</item>
         <item>Others</item>
     </array>
@@ -29,7 +29,7 @@
     <array name="categoriesForAdding">
         <item>Sports</item>
         <item>Music</item>
-        <item>Family and Kids</item>
+        <item>Family</item>
         <item>Arts</item>
         <item>Others</item>
     </array>

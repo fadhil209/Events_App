@@ -19,7 +19,14 @@ public class Main2Activity extends AppCompatActivity {
     public static boolean userboolean ;
     public static TabLayout tabLayout;
     static ViewPager viewPager;
-    Fragment[] fragment = new Fragment[4];
+    Fragment[] fragment = new Fragment[5];
+
+    public static int userSports = 0 ;
+    public static int userArts = 0 ;
+    public static int userMusic = 0 ;
+    public static int userFamily = 0 ;
+    public static int userOthers = 0 ;
+
 
 
 
@@ -30,17 +37,21 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         mAuth = FirebaseAuth.getInstance();
 
+
+
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.pager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Events"));
         tabLayout.addTab(tabLayout.newTab().setText("Deals"));
+        tabLayout.addTab(tabLayout.newTab().setText("Suggestions"));
         tabLayout.addTab(tabLayout.newTab().setText("Add Event"));
         viewPager.setSaveFromParentEnabled(false);
         fragment[0] = new EventsFragment();
         fragment[1] = new DealsFragment();
-        fragment[2] = new LogInFragment();
-        fragment[3] = new AddEventsFragment();
+        fragment[2] = new RecommendationFragment();
+        fragment[3] = new LogInFragment();
+        fragment[4] = new AddEventsFragment();
         final PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), fragment);
 
         viewPager.setAdapter(pageAdapter);

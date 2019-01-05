@@ -30,7 +30,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background"
+                app:srcCompat="@drawable/images"
                 android:id="@+id/imageViewAdd" />
 
             <Button
@@ -92,11 +92,11 @@
                 android:focusableInTouchMode="false" />
 
             <TextView
-                android:text="Any deals ?(optional)"
+                android:text="Deals? (Optional)"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <EditText
                 android:layout_width="match_parent"
