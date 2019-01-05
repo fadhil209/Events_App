@@ -19,9 +19,7 @@ def parse_results(html, keyword):
     soup = BeautifulSoup(html, 'html.parser')
 
     found_results = []
-    rank = 1
     result_block = soup.find_all('div', attrs={'class': 'h998We mlo-c'})
-    #print(result_block) gets the top lists only
     for result in result_block:
         link = result.find('a', href=True)
         title = result.find('div', attrs={'class': 'title'})
