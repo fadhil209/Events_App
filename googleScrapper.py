@@ -21,7 +21,7 @@ def parse_results(html, keyword):
     found_results = []
     result_block = soup.find_all('div', attrs={'class': 'h998We mlo-c'})
     for result in result_block:
-        link = result.find('a', href=True)
+        link = result.find('a', href=True) #filter the top list of the google search only
         title = result.find('div', attrs={'class': 'title'})
         date = result.find('div', attrs={'class':'aXUuyd'})
         location = result.find('span')
@@ -35,8 +35,7 @@ def parse_results(html, keyword):
             if time:
                 time = time.get_text()
             #if link != '#':
-            found_results.append({'keyword': keyword, 'rank': rank, 'title': title, 'location': location, 'link': link, 'date':date, 'time':time})
-            rank += 1
+            found_results.append({'keyword': keyword, 'title': title, 'location': location, 'link': link, 'date':date, 'time':time})
 
     return found_results
 
