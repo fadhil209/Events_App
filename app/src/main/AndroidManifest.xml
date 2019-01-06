@@ -24,16 +24,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Main2Activity"
-            android:theme="@style/App1Theme"></activity>
+            android:name=".MainActivity"
+            android:theme="@style/App1Theme" />
         <activity
             android:name=".LogIn"
             android:theme="@style/App1Theme" />
         <activity
             android:name=".signUp"
             android:theme="@style/App1Theme" />
-        <activity android:name=".AddEvents" />
-        <activity android:name=".showEvent"></activity>
+        <activity android:name=".AddEvents"
+            android:theme="@style/App1Theme"/>
+        <activity
+            android:name=".showEvent"
+            android:theme="@style/App1Theme" />
+        <activity android:name=".showDeal"
+            android:theme="@style/App1Theme"></activity>
     </application>
 
 </manifest>

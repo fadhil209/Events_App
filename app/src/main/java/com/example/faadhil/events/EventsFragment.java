@@ -3,6 +3,7 @@ package com.example.faadhil.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,11 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.example.faadhil.events.R.id.spinner;
 
 /**
@@ -52,6 +52,15 @@ public class EventsFragment extends Fragment {
     boolean searchboolean;
     boolean searched;
     Date c;
+
+    SharedPreferences prefs ;
+
+
+    public int userSports  ;
+    public int userArts  ;
+    public int userMusic ;
+    public int userFamily;
+    public int userOthers;
 
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("events");
@@ -72,6 +81,14 @@ public class EventsFragment extends Fragment {
         event = new ArrayList<>();
         smWords = new ArrayList<>();
         listOrder = new ArrayList<>();
+
+        prefs = getActivity().getPreferences(MODE_PRIVATE);
+        userSports = prefs.getInt("userSports", 0) ;
+        userArts = prefs.getInt("userArts", 0) ;
+        userMusic =  prefs.getInt("userMusic", 0) ;
+        userFamily = prefs.getInt("userFamily", 0) ;
+        userOthers = prefs.getInt("userOthers", 0) ;
+
         return rootView;
 
     }
@@ -81,13 +98,16 @@ public class EventsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         c = Calendar.getInstance().getTime();
-        SimpleDateFormat sp = new SimpleDateFormat("dd/mm/yy");
-        String formattedc = sp.format(c);
+        SimpleDateFormat sp = new SimpleDateFormat("yyMMdd");
+        final String formattedc = sp.format(c);
+        Log.d("TAG", "onViewCreated: " + formattedc);
+
         categoriesSpinner = (Spinner) getView().findViewById(spinner);
         listView = (ListView) getView().findViewById(R.id.eventsListView);
         searchedit = (EditText) getView().findViewById(R.id.searchbox);
         searchboolean = false;
         searched = false;
+
 
 
 
@@ -124,16 +144,25 @@ public class EventsFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("TAG", "onViewCreated: for testing");
                 events.clear();
 
                 String category = "All";
 
                 for (DataSnapshot eventsdata : dataSnapshot.getChildren()) {
-                    event.add(eventsdata.getValue(Events.class));
+                    String currentEventDate = eventsdata.getValue(Events.class).getDate();
+                    String formattedDate = currentEventDate.substring(11, 13) + currentEventDate.substring(8, 10) + currentEventDate.substring(5, 7) ;
+                    if (Integer.parseInt(formattedDate) >= Integer.parseInt(formattedc)) {
+                        event.add(eventsdata.getValue(Events.class));
+                    }
+                    else {
+                        Log.d("TAGno", "onDataChange: event not added");
+                        Log.d("TAGno", "onDataChange: "+ eventsdata.getValue(Events.class).getEventName());
+                    }
 
                 }
-                Collections.reverse(event);
+//                Collections.reverse(event);
+
+                bubbleSort(event);
                 if(!searchedit.getText().toString().equals("")){
                     performSearch();
                 }else {
@@ -169,7 +198,6 @@ public class EventsFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(searchedit.getText().toString().equals("")) {
                     String categories = adapterView.getItemAtPosition(i).toString();
-                    Log.d("TAG", "onViewCreated: for testing selected listener");
                     events.clear();
                     listView.setAdapter(null);
                     for (Events events2 : event) {
@@ -243,21 +271,20 @@ public class EventsFragment extends Fragment {
 
 
                 publicEvent = events.get(i);
-                Toast.makeText(getContext(), "inside listView on Click listener", Toast.LENGTH_SHORT).show();
                 if("sports".equals(publicEvent.getCategory().toLowerCase())){
-                    Main2Activity.userSports++;
+                    userSports++;
                 }
                 else if("arts".equals(publicEvent.getCategory().toLowerCase())){
-                    Main2Activity.userArts++;
+                    userArts++;
                 }
                 else if("music".equals(publicEvent.getCategory().toLowerCase())){
-                    Main2Activity.userMusic++;
+                    userMusic++;
                 }
                 else if("family".equals(publicEvent.getCategory().toLowerCase())){
-                    Main2Activity.userFamily++;
+                    userFamily++;
                 }
                 else if("others".equals(publicEvent.getCategory().toLowerCase())){
-                    Main2Activity.userOthers++;
+                    userOthers++;
                 }
 
 
@@ -272,7 +299,6 @@ public class EventsFragment extends Fragment {
                                     clickedSearchTerm = entry.getKey();
                             }
 
-//                            Log.d("TAG", "onItemClick: " + temp.get(clickedSearchTerm) + " " + clickedSearchTerm);
                             temp.put(clickedSearchTerm, temp.get(clickedSearchTerm) + 1 );
                             SimilarWord newTemp = new SimilarWord(searchedit.getText().toString());
                             newTemp.setRelevantWord(temp);
@@ -290,11 +316,22 @@ public class EventsFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("TAG", "onStop: " + userMusic);
+        SharedPreferences.Editor editor = getActivity().getPreferences(MODE_PRIVATE).edit();
+        editor.putInt("userSports", userSports);
+        editor.putInt("userArts", userArts);
+        editor.putInt("userMusic", userMusic);
+        editor.putInt("userFamily", userFamily);
+        editor.putInt("userOthers", userOthers);
+        editor.apply();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        Log.d("TAG", "onResume: " + searchedit.getText().toString());
         if(!searchedit.getText().toString().equals("")){
-            Log.d("TAG", "onResume: inside if");
             events.clear();
             performSearch();
         }
@@ -348,7 +385,6 @@ public class EventsFragment extends Fragment {
                 searchboolean = true;
                 sm.sort();
                 for (Map.Entry<String, Integer> entry : sm.getRelevantWord().entrySet()) {
-                    Log.d("Tag entry", "performSearch: similar word is : " + entry.getKey());
                     for (Events events2 : event) {
                         if (events2.getCategory().toLowerCase().contains(entry.getKey().toLowerCase())) {
                             if (!eventContains(events, events2)) {
@@ -392,15 +428,12 @@ public class EventsFragment extends Fragment {
             }
         }
 
-        for (String order: listOrder){
-            Log.d("TAG Order", "performSearch: " + order);
-        }
+
     }
 
     public boolean eventContains(List<Events> arr, Events one){
         for (Events all: arr){
-            if (one.getCategory().toLowerCase().equals(all.getCategory().toLowerCase()) &&
-                    one.getLocation().toLowerCase().equals(all.getLocation().toLowerCase()) &&
+            if (one.getLocation().toLowerCase().equals(all.getLocation().toLowerCase()) &&
                     one.getEventName().toLowerCase().equals(all.getEventName().toLowerCase()) &&
                     one.getDate().toLowerCase().equals(all.getDate().toLowerCase()))
             {
@@ -408,6 +441,29 @@ public class EventsFragment extends Fragment {
             }
         }
         return false;
+    }
+
+    void bubbleSort(List<Events> events)
+    {
+        int n = events.size();
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                String DateJ = events.get(j).getDate().substring(11, 13) +
+                        events.get(j).getDate().substring(8, 10) +
+                        events.get(j).getDate().substring(5, 7) ;
+                String DateJ1 = events.get(j+1).getDate().substring(11, 13) +
+                        events.get(j+1).getDate().substring(8, 10) +
+                        events.get(j+1).getDate().substring(5, 7) ;
+                if ( Integer.parseInt(DateJ) >  Integer.parseInt(DateJ1)) {
+                    // swap arr[j+1] and arr[i]
+                    Events temp = events.get(j);
+                    events.set(j, events.get(j+1));
+                    events.set(j+1, temp);
+//                    arr[j] = arr[j + 1];
+//                    arr[j + 1] = temp;
+                }
+            }
+        }
     }
 }
 

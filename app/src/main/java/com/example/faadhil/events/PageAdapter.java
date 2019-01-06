@@ -36,7 +36,7 @@ public class PageAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return fragment[2];
             case 3:
-                if (!Main2Activity.userboolean) {
+                if (!MainActivity.userboolean) {
                     return fragment[3];
                 } else {
                     return fragment[4];

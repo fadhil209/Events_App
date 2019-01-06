@@ -23,7 +23,7 @@ public class DealsViewAdapter extends ArrayAdapter {
     List<Deals> dealsList;
 
     public DealsViewAdapter(Context context, List<Deals> dealsList) {
-        super(context, R.layout.deals_view_layout, dealsList);
+        super(context, R.layout.deals_grid_view, dealsList);
         this.context = context;
         this.dealsList = dealsList;
     }
@@ -44,7 +44,7 @@ public class DealsViewAdapter extends ArrayAdapter {
 //        Deals deal = dealsList.get(position);
 //
 //
-//        dealsName.setText(deal.getEventName());
+//        dealsName.setText(deal.getDealName());
 //        timeTextView.setText(deal.getStartdate() + " to " + deal.getEnddate());
 //        locationTextView.setText(deal.getLocation());
 //
@@ -73,7 +73,7 @@ public class DealsViewAdapter extends ArrayAdapter {
         Deals deal = dealsList.get(position);
 
 
-//        dealsName.setText(deal.getEventName());
+//        dealsName.setText(deal.getDealName());
 //        timeTextView.setText(deal.getStartdate() + " to " + deal.getEnddate());
 //        locationTextView.setText(deal.getLocation());
 

@@ -12,7 +12,7 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Main2Activity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -21,11 +21,9 @@ public class Main2Activity extends AppCompatActivity {
     static ViewPager viewPager;
     Fragment[] fragment = new Fragment[5];
 
-    public static int userSports = 0 ;
-    public static int userArts = 0 ;
-    public static int userMusic = 0 ;
-    public static int userFamily = 0 ;
-    public static int userOthers = 0 ;
+
+
+
 
 
 
@@ -34,7 +32,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
 

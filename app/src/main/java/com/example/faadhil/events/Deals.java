@@ -5,11 +5,12 @@ package com.example.faadhil.events;
  */
 
 public class Deals {
-    private String eventId;
-    private String eventName;
+    private String dealId;
+    private String dealName;
     private String description;
     private String location;
     private String uri;
+    private String link;
     private String startdate;
     private String enddate;
     private String username;
@@ -17,15 +18,24 @@ public class Deals {
     public Deals() {
     }
 
-    public Deals(String description, String enddate, String eventId, String eventName, String location, String startdate, String uri, String username) {
+    public Deals(String dealId, String dealName, String description, String enddate, String link, String location, String startdate, String uri, String username) {
+        this.dealId = dealId;
+        this.dealName = dealName;
         this.description = description;
         this.enddate = enddate;
-        this.eventId = eventId;
-        this.eventName = eventName;
+        this.link = link;
         this.location = location;
         this.startdate = startdate;
         this.uri = uri;
         this.username = username;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getDescription() {
@@ -44,20 +54,20 @@ public class Deals {
         this.enddate = enddate;
     }
 
-    public String getEventId() {
-        return eventId;
+    public String getDealId() {
+        return dealId;
     }
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
+    public void setDealId(String dealId) {
+        this.dealId = dealId;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getDealName() {
+        return dealName;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setDealName(String dealName) {
+        this.dealName = dealName;
     }
 
     public String getLocation() {

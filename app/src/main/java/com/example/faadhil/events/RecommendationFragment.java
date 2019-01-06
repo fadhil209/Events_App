@@ -1,5 +1,6 @@
 package com.example.faadhil.events;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Faadhil on 1/2/2019.
  */
@@ -20,12 +23,16 @@ import java.util.List;
 public class RecommendationFragment extends Fragment{
 
     ListView listView;
-    int Sports = Main2Activity.userSports;
-    int Arts = Main2Activity.userArts;
-    int Music = Main2Activity.userMusic;
-    int Family = Main2Activity.userFamily;
-    int Others = Main2Activity.userOthers;
-    int[] sorted = {Sports, Arts, Music, Family, Others};
+
+    SharedPreferences prefs ;
+    int Sports ;
+    int Arts ;
+    int Music ;
+    int Family ;
+    int Others ;
+
+
+    int[] sorted = new int[5];
 
     List<Events> allEvents ;
     List<Events> recommended;
@@ -36,6 +43,20 @@ public class RecommendationFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        prefs = getActivity().getPreferences( MODE_PRIVATE);
+        Sports = prefs.getInt("userSports", 0) ;
+        Arts = prefs.getInt("userArts", 0) ;
+        Music = prefs.getInt("userMusic", 0) ;
+        Family = prefs.getInt("userFamily", 0) ;
+        Others = prefs.getInt("userOthers", 0) ;
+
+        sorted[0] = Sports;
+        sorted[1] = Arts;
+        sorted[2] = Music;
+        sorted[3] = Family;
+        sorted[4] = Others;
+
+
         return inflater.inflate(R.layout.activity_recommendation, container, false);
     }
 
@@ -45,9 +66,6 @@ public class RecommendationFragment extends Fragment{
         listView = (ListView) getView().findViewById(R.id.recommendationListView);
         recommended = new ArrayList<>();
         allEvents = EventsFragment.event;
-
-
-
 
         String[] sortedCategory = new String[3];
 
@@ -77,8 +95,6 @@ public class RecommendationFragment extends Fragment{
             }
         }
 
-        Log.d("Recommendation", sortedCategory[0]  +  " " + sortedCategory[1]+  " " + sortedCategory[2]);
-        Log.d("Recommendation clicks", Main2Activity.userSports +  " " + Main2Activity.userArts +  " " + Main2Activity.userMusic +  " " + Main2Activity.userFamily);
         recommended.clear();
 
         boolean add;
@@ -113,11 +129,14 @@ public class RecommendationFragment extends Fragment{
         listView = (ListView) getView().findViewById(R.id.recommendationListView);
         recommended = new ArrayList<>();
         allEvents = EventsFragment.event;
-        Sports = Main2Activity.userSports;
-        Arts = Main2Activity.userArts;
-        Music = Main2Activity.userMusic;
-        Family = Main2Activity.userFamily;
-        Others = Main2Activity.userOthers;
+
+
+
+        Sports = prefs.getInt("userSports", 0) ;
+        Arts = prefs.getInt("userArts", 0) ;
+        Music = prefs.getInt("userMusic", 0) ;
+        Family = prefs.getInt("userFamily", 0) ;
+        Others = prefs.getInt("userOthers", 0) ;
 
 
         sorted[0] = Sports;
@@ -134,12 +153,12 @@ public class RecommendationFragment extends Fragment{
 
         int x =0;
         for(int i = 4; i>=2; i--) {
-            if(Sports == sorted[i] && !contains(sortedCategory, "Sports")){
-                sortedCategory[x] = "Sports";
+            if(Sports == sorted[i] && !contains(sortedCategory, "Sport")){
+                sortedCategory[x] = "Sport";
                 x++;
             }
-            else if (Arts == sorted[i] && !contains(sortedCategory, "Arts")){
-                sortedCategory[x] = "Arts";
+            else if (Arts == sorted[i] && !contains(sortedCategory, "Art")){
+                sortedCategory[x] = "Art";
                 x++;
             }
             else if (Music == sorted[i] && !contains(sortedCategory, "Music")) {
@@ -150,14 +169,12 @@ public class RecommendationFragment extends Fragment{
                 sortedCategory[x] = "Family";
                 x++;
             }
-            else if (Others == sorted[i] && !contains(sortedCategory, "Others")){
-                sortedCategory[x] = "Others";
+            else if (Others == sorted[i] && !contains(sortedCategory, "Other")){
+                sortedCategory[x] = "Other";
                 x++;
             }
         }
 
-        Log.d(" Recommendation","On resume" + sortedCategory[0]  +  " " + sortedCategory[1]+  " " + sortedCategory[2]);
-        Log.d("Recommendation clicks","On resume" + Main2Activity.userSports +  " " + Main2Activity.userArts +  " " + Main2Activity.userMusic +  " " + Main2Activity.userFamily);
         recommended.clear();
 
         boolean add;

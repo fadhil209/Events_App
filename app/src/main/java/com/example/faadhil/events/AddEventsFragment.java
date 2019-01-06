@@ -126,7 +126,7 @@ public class AddEventsFragment extends Fragment {
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("log", "Upload image onClick: " + Main2Activity.viewPager.getFocusedChild() );
+                Log.d("log", "Upload image onClick: " + MainActivity.viewPager.getFocusedChild() );
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(intent.ACTION_GET_CONTENT);
@@ -138,7 +138,10 @@ public class AddEventsFragment extends Fragment {
         uploadEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(uri != null)
                 uploadevent();
+                else
+                    Toast.makeText(getContext(), "Upload an Image", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -196,7 +199,7 @@ public class AddEventsFragment extends Fragment {
     }
 
     private void updateLabel() {
-        String myFormat = "E dd/MM/yy"; //In which you need put here
+        String myFormat = "E, dd/MM/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         eventDate.setText(sdf.format(myCalendar.getTime()));

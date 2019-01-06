@@ -6,7 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.faadhil.events.Main2Activity">
+    tools:context="com.example.faadhil.events.MainActivity">
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pager"
+        android:layout_gravity="top"
+        android:layout_weight="9">
+    </android.support.v4.view.ViewPager>
 
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
@@ -15,13 +24,10 @@
         android:background="@color/colorTabLayout"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:minHeight="?attr/actionBarSize"
-        app:tabIndicatorColor="@android:color/black" />
+        app:tabIndicatorColor="@android:color/black"
+        android:layout_gravity="bottom"
+        android:layout_weight="0" />
 
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/pager">
-    </android.support.v4.view.ViewPager>
 
 
 </LinearLayout>

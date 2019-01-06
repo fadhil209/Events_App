@@ -19,19 +19,19 @@
 
     <array name="categories">
         <item>All</item>
-        <item>Sports</item>
+        <item>Sport</item>
         <item>Music</item>
         <item>Family</item>
-        <item>Arts</item>
-        <item>Others</item>
+        <item>Art</item>
+        <item>Other</item>
     </array>
 
     <array name="categoriesForAdding">
-        <item>Sports</item>
+        <item>Sport</item>
         <item>Music</item>
         <item>Family</item>
-        <item>Arts</item>
-        <item>Others</item>
+        <item>Art</item>
+        <item>Other</item>
     </array>
 
     <!-- TODO: Remove or change this placeholder text -->
