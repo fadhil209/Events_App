@@ -3,19 +3,17 @@
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
-import pyrebase;
+import pyrebase
 
 def parse_results(html):
     soup = BeautifulSoup(html, 'html.parser')
     found_results = []
     result_block = soup.find_all('div', attrs={'class': 'notliveevent'})
-    #print(result_block) #gets the top lists only
     for result in result_block:
         link = result.find('a', href=True)
         title = result.find('div', attrs={'class': 'searchResultEventNameMobile hiddenOnDesktop'})
         startdate = result.find('span', attrs={'class':'ln1'})
         image = result.find('img', src=True)
-        #enddate = result.find('div', attrs={'class': 'grid_3 alpha omega'})
         location = result.find('a', attrs={'class': 'ln1 searchResultPlace'})
         if link and title:
             link = "http://www.biletix.com" + link['href']
@@ -23,8 +21,8 @@ def parse_results(html):
             title = title.get_text()
             startdate = startdate.get_text()
             location =location.get_text()
-            found_results.append({'title': title, 'link': link, 'startdate': startdate, 'image': image, 'location': location, 'category': ''})
-
+            found_results.append({'title': title, 'link': link, 'startdate': startdate,
+                                  'image': image, 'location': location, 'category': ''})
     return found_results
 
 def fitImage (category, location):
@@ -66,7 +64,6 @@ def fitImage (category, location):
         img_uri = storage.child("events/" + "others-default.jpg").get_url(None)
     else:
         img_uri = storage.child("events/" + "default.jpeg").get_url(None)
-
     return img_uri
 
 
@@ -82,7 +79,6 @@ def uploadData(datalist):
     password = "123456"
     auth = firebase.auth()
     user = auth.sign_in_with_email_and_password(email, password)
-    data = {}
     db = firebase.database()
     counter = 0
     for item in datalist:
@@ -98,10 +94,8 @@ def uploadData(datalist):
                 "time": "",
                 "uri": fitImage(item["category"], item["location"])
                 }
-        print(counter , "category ıs " ,data["category"])
         db.child("events").push(data, user['idToken']) #pushing data into the app
         counter += 1
-
     print(counter, "unique events uploaded!")
 
 USER_AGENT = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'}

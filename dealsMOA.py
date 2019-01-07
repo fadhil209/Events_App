@@ -35,7 +35,8 @@ def parse_results(html):
             startdate = startdate.get_text()
             enddate = enddate.get_text()
             description = description.get_text()
-            found_results.append({'title': title, 'link': 'http://www.mallofantalya.com.tr/TR/etkinlikler', 'startdate': startdate, 'enddate' : enddate,'image': image,
+            found_results.append({'title': title, 'link': 'http://www.mallofantalya.com.tr/TR/etkinlikler',
+                                  'startdate': startdate, 'enddate' : enddate,'image': image,
                                   'location': "Mall of Antalya", 'description' : description})
     return found_results
 
@@ -61,11 +62,11 @@ def downloadImages(datalist):
         img_url = item["image"]
         splitted = item["image"].split('/')
         filename = splitted[-1]
-        #urllib.request.urlretrieve(img_url , 'C:/Users/Heba/PycharmProjects/SP-Scrapper/DealsImages/'+filename)
+        urllib.request.urlretrieve(img_url , 'C:/Users/Heba/PycharmProjects/SP-Scrapper/DealsImages/'+filename)
         counter1 +=1
-        #storage.child("deals/"+filename).put('C:/Users/Heba/PycharmProjects/SP-Scrapper/DealsImages/'+ filename, user['idToken'])
+        storage.child("deals/"+filename).put('C:/Users/Heba/PycharmProjects/SP-Scrapper/DealsImages/'+ filename, user['idToken'])
         counter2 += 1
-
+        #store the pictures in the storage of db
         xyz = storage.child("deals/"+filename).get_url(None)
         item.update({"img_uri": xyz})
 
@@ -79,11 +80,9 @@ def downloadImages(datalist):
                 }
         db.child("deals").push(data, user['idToken'])
         counter3 += 1
-
     print (counter1 ,"many pictures were downloaded")
     print(counter2, "many pictures were uploaded")
     print(counter3, "unique deals were added to app")
 
-
-#print(parse_results(page))
 downloadImages(parse_results(page))
+print("testline")
