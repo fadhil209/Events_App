@@ -85,7 +85,6 @@ public class AddEventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_add_events,container,false);
-//        imageView1 = (ImageView) rootView.findViewById(R.id.imageView1);
         setRetainInstance(true);
         return rootView;
 

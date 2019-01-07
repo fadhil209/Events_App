@@ -46,7 +46,6 @@ public class DealsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_deals, container, false);
     }
 
@@ -54,7 +53,6 @@ public class DealsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        dealsList = (ListView) getView().findViewById(R.id.DealsListView);
         deals = new ArrayList<>();
         deal = new ArrayList<>();
         dealsgridview = (GridView) getView().findViewById(R.id.GridViewDeals);
@@ -69,13 +67,7 @@ public class DealsFragment extends Fragment {
                 }
 
                 Collections.reverse(deals);
-//                for(Deals deals1 : deals){
-//                    if (!deal.contains(deals1)){
-//                        deal.add(deals1);
-//                        DealsViewAdapter viewAdapter = new DealsViewAdapter(getActivity(), deal);
-//                        dealsList.setAdapter(viewAdapter);
-//                    }
-//                }
+
                 for(Deals deals1 : deals){
                     if (!deal.contains(deals1)){
                         deal.add(deals1);

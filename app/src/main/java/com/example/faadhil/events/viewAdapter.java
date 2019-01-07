@@ -54,7 +54,11 @@ public class viewAdapter extends ArrayAdapter {
         locationTextView.setText(event.getLocation());
         category.setText(event.getCategory());
 
-        Picasso.with(context).load(Uri.parse(event.getUri())).transform(new RoundedCornersTransformation(20,0)).fit().into(imageView);
+        Picasso.with(context).load(Uri.parse(event.getUri()))
+                .transform(new RoundedCornersTransformation(10,0))
+                .resize(100,100)
+                .centerCrop()
+                .into(imageView);
 
         return listViewItem;
 

@@ -15,11 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LogIn extends AppCompatActivity {
 
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     EditText email;
     EditText password;
@@ -33,24 +31,7 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
 
-        mAuthListener = new FirebaseAuth.AuthStateListener(){
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                if (user != null) {
-                    // User is signed in
-                    //redirect
-                    Toast.makeText(LogIn.this, "updateUI", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    // User is signed out
-//                    Log.d("TAG", "onAuthStateChanged:signed_out");
-                    Toast.makeText(LogIn.this, "updateUI else part", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        };
         mAuth = FirebaseAuth.getInstance();
         email = (EditText) findViewById(R.id.emailSignIn);
         password = (EditText) findViewById(R.id.PasswordSignIn);

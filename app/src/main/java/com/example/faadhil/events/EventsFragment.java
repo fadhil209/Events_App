@@ -4,8 +4,10 @@ package com.example.faadhil.events;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -52,6 +54,7 @@ public class EventsFragment extends Fragment {
     boolean searchboolean;
     boolean searched;
     Date c;
+    public FloatingActionButton fab;
 
     SharedPreferences prefs ;
 
@@ -100,19 +103,34 @@ public class EventsFragment extends Fragment {
         c = Calendar.getInstance().getTime();
         SimpleDateFormat sp = new SimpleDateFormat("yyMMdd");
         final String formattedc = sp.format(c);
-        Log.d("TAG", "onViewCreated: " + formattedc);
 
         categoriesSpinner = (Spinner) getView().findViewById(spinner);
         listView = (ListView) getView().findViewById(R.id.eventsListView);
         searchedit = (EditText) getView().findViewById(R.id.searchbox);
         searchboolean = false;
         searched = false;
+        fab = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
 
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!MainActivity.userboolean) {
+                    Intent intent = new Intent(getActivity(), LogIn.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), AddEvents.class);
+                    startActivity(intent);
+                }
+            }
+
+        });
 
 
 
 
         searchedit.setFocusableInTouchMode(false);
+
 
 
         searchedit.setOnClickListener(new View.OnClickListener() {
@@ -154,35 +172,13 @@ public class EventsFragment extends Fragment {
                     if (Integer.parseInt(formattedDate) >= Integer.parseInt(formattedc)) {
                         event.add(eventsdata.getValue(Events.class));
                     }
-                    else {
-                        Log.d("TAGno", "onDataChange: event not added");
-                        Log.d("TAGno", "onDataChange: "+ eventsdata.getValue(Events.class).getEventName());
-                    }
 
                 }
-//                Collections.reverse(event);
 
-                bubbleSort(event);
-                if(!searchedit.getText().toString().equals("")){
-                    performSearch();
-                }else {
-                    for (Events events2 : event) {
-                        if (category == "All") {
-                            if (!events.contains(events2)) {
-                                events.add(events2);
-                                viewAdapter viewAdapter = new viewAdapter(getActivity(), events);
-                                listView.setAdapter(viewAdapter);
+                new MyAsyncTask(getContext()).execute();
 
-                            }
-                        } else if (events2.getCategory() == category) {
-                            if (!events.contains(events2)) {
-                                events.add(events2);
-                                viewAdapter viewAdapter = new viewAdapter(getActivity(), events);
-                                listView.setAdapter(viewAdapter);
-                            }
-                        }
-                    }
-                }
+
+
 
             }
 
@@ -244,22 +240,6 @@ public class EventsFragment extends Fragment {
                 return false;
             }
         });
-//        searchedit.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                performSearch();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
 
         if(!searchedit.getText().toString().equals("")){
             performSearch();
@@ -271,10 +251,10 @@ public class EventsFragment extends Fragment {
 
 
                 publicEvent = events.get(i);
-                if("sports".equals(publicEvent.getCategory().toLowerCase())){
+                if("sport".equals(publicEvent.getCategory().toLowerCase())){
                     userSports++;
                 }
-                else if("arts".equals(publicEvent.getCategory().toLowerCase())){
+                else if("art".equals(publicEvent.getCategory().toLowerCase())){
                     userArts++;
                 }
                 else if("music".equals(publicEvent.getCategory().toLowerCase())){
@@ -283,7 +263,7 @@ public class EventsFragment extends Fragment {
                 else if("family".equals(publicEvent.getCategory().toLowerCase())){
                     userFamily++;
                 }
-                else if("others".equals(publicEvent.getCategory().toLowerCase())){
+                else if("other".equals(publicEvent.getCategory().toLowerCase())){
                     userOthers++;
                 }
 
@@ -318,7 +298,6 @@ public class EventsFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("TAG", "onStop: " + userMusic);
         SharedPreferences.Editor editor = getActivity().getPreferences(MODE_PRIVATE).edit();
         editor.putInt("userSports", userSports);
         editor.putInt("userArts", userArts);
@@ -332,9 +311,10 @@ public class EventsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if(!searchedit.getText().toString().equals("")){
-            events.clear();
+            new MyAsyncTaskOnResume().execute();
             performSearch();
         }
+
     }
 
     private void closeKeyboard() {
@@ -420,8 +400,13 @@ public class EventsFragment extends Fragment {
                 SimilarWord newTemp = new SimilarWord(search);
 
                 for (String word : words) {
-                    if (word.length()>2)
-                        newTemp.relevantWord.put(word, 0);
+                    if (word.length()>2){
+                        if(!word.toLowerCase().equals(search.toLowerCase())) {
+                            newTemp.relevantWord.put(word, 0);
+                        }
+
+                    }
+
                 }
                 newTemp.relevantWord.put(temp.getLocation(), 0);
                 databaseReferencesimilarWords.child(search).setValue(newTemp);
@@ -455,16 +440,71 @@ public class EventsFragment extends Fragment {
                         events.get(j+1).getDate().substring(8, 10) +
                         events.get(j+1).getDate().substring(5, 7) ;
                 if ( Integer.parseInt(DateJ) >  Integer.parseInt(DateJ1)) {
-                    // swap arr[j+1] and arr[i]
                     Events temp = events.get(j);
                     events.set(j, events.get(j+1));
                     events.set(j+1, temp);
-//                    arr[j] = arr[j + 1];
-//                    arr[j + 1] = temp;
                 }
             }
         }
     }
+
+    class MyAsyncTask extends AsyncTask<String, String, String >{
+
+        Context context;
+
+        public MyAsyncTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            Log.d("TAG", "doInBackground: ");
+            bubbleSort(event);
+            return "ok";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            String category = "All";
+            if(!searchedit.getText().toString().equals("")){
+                    performSearch();
+            }else {
+                for (Events events2 : event) {
+                    if (category == "All") {
+                        if (!events.contains(events2)) {
+                            events.add(events2);
+                            viewAdapter viewAdapter = new viewAdapter(getActivity(), events);
+                            listView.setAdapter(viewAdapter);
+
+                        }
+                    } else if (events2.getCategory() == category) {
+                        if (!events.contains(events2)) {
+                            events.add(events2);
+                            viewAdapter viewAdapter = new viewAdapter(getActivity(), events);
+                            listView.setAdapter(viewAdapter);
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    class MyAsyncTaskOnResume extends AsyncTask<String, String, String>{
+
+        public MyAsyncTaskOnResume() {
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+                events.clear();
+
+            return null;
+        }
+    }
+
+
+
 }
 
 

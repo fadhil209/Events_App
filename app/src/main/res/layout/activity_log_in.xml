@@ -11,7 +11,7 @@
     android:paddingTop="100px"
     tools:context="com.example.faadhil.events.LogIn"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="?attr/colorButtonNormal">
 
     <TextView
         android:text="@string/app_name_1"
@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorPrimary"
         android:textSize="36sp"
         android:textAlignment="center"
         android:gravity="center_horizontal" />
@@ -82,7 +82,7 @@
             android:id="@+id/SignUpLogin"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/colorPrimary" />
 
         <Space
             android:layout_width="match_parent"

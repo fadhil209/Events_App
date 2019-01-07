@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,14 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText("Events"));
         tabLayout.addTab(tabLayout.newTab().setText("Deals"));
-        tabLayout.addTab(tabLayout.newTab().setText("Suggestions"));
-        tabLayout.addTab(tabLayout.newTab().setText("Add Event"));
+        tabLayout.addTab(tabLayout.newTab().setText("Explore"));
         viewPager.setSaveFromParentEnabled(false);
         fragment[0] = new EventsFragment();
         fragment[1] = new DealsFragment();
         fragment[2] = new RecommendationFragment();
-        fragment[3] = new LogInFragment();
-        fragment[4] = new AddEventsFragment();
         final PageAdapter pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), fragment);
 
         viewPager.setAdapter(pageAdapter);
@@ -103,6 +99,5 @@ public class MainActivity extends AppCompatActivity {
         }, 50);
 
 
-        Log.d("Log", "onActivityResult: in Mainactivity" + viewPager.getCurrentItem());
     }
 }

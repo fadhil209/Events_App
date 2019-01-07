@@ -1,5 +1,6 @@
 package com.example.faadhil.events;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -71,14 +73,15 @@ public class RecommendationFragment extends Fragment{
 
         Arrays.sort(sorted);
 
+        Log.d("TAG", "onViewCreated: Arts" + Arts);
         int x =0;
         for(int i = 4; i>=2; i--) {
-            if(Sports == sorted[i] && !contains(sortedCategory, "Sports")){
-                sortedCategory[x] = "Sports";
+            if(Sports == sorted[i] && !contains(sortedCategory, "Sport")){
+                sortedCategory[x] = "Sport";
                 x++;
             }
-            else if (Arts == sorted[i] && !contains(sortedCategory, "Arts")){
-                sortedCategory[x] = "Arts";
+            else if (Arts == sorted[i] && !contains(sortedCategory, "Art")){
+                sortedCategory[x] = "Art";
                 x++;
             }
             else if (Music == sorted[i] && !contains(sortedCategory, "Music")) {
@@ -89,8 +92,8 @@ public class RecommendationFragment extends Fragment{
                 sortedCategory[x] = "Family";
                 x++;
             }
-            else if (Others == sorted[i] && !contains(sortedCategory, "Others")){
-                sortedCategory[x] = "Others";
+            else if (Others == sorted[i] && !contains(sortedCategory, "Other")){
+                sortedCategory[x] = "Other";
                 x++;
             }
         }
@@ -101,6 +104,7 @@ public class RecommendationFragment extends Fragment{
         for (int i = 0 ; i < 3; i++){
             for (int j = 0; j < sortedCategory.length; j++){
                 add=true;
+                Log.d("TAG", "onViewCreated: " + sortedCategory[j]);
                 for (Events events2 : allEvents) {
                     if (events2.getCategory().toLowerCase().equals(sortedCategory[j].toLowerCase()) && add) {
                         if (!recommended.contains(events2)) {
@@ -114,6 +118,15 @@ public class RecommendationFragment extends Fragment{
                 }
             }
         }
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                EventsFragment.publicEvent = recommended.get(i);
+                Intent intent = new Intent(getActivity(), showEvent.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -130,8 +143,6 @@ public class RecommendationFragment extends Fragment{
         recommended = new ArrayList<>();
         allEvents = EventsFragment.event;
 
-
-
         Sports = prefs.getInt("userSports", 0) ;
         Arts = prefs.getInt("userArts", 0) ;
         Music = prefs.getInt("userMusic", 0) ;
@@ -147,7 +158,6 @@ public class RecommendationFragment extends Fragment{
 
 
         String[] sortedCategory = new String[3];
-        Log.d(" Recommendation","On resume before " + sortedCategory[0]  +  " " + sortedCategory[1]+  " " + sortedCategory[2]);
 
         Arrays.sort(sorted);
 

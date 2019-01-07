@@ -3,6 +3,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:text="Events You May Like"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginBottom="15dp"
+        android:background="@color/colorTabLayout"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/white" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
