@@ -72,7 +72,7 @@ public class LogIn extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             finish();
-                            Toast.makeText(LogIn.this, mAuth.getCurrentUser().getDisplayName()+" Sign in Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LogIn.this, "Sign in Successful", Toast.LENGTH_SHORT).show();
                         }else{
                             Log.w("TAG", "signInWithEmail:failure", task.getException());
                             Toast.makeText(LogIn.this, "Authentication failed.",
