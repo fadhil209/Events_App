@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import pyrebase;
+import pyrebase
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import urllib.request
@@ -85,4 +85,3 @@ def downloadImages(datalist):
     print(counter3, "unique deals were added to app")
 
 downloadImages(parse_results(page))
-print("testline")
